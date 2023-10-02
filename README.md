@@ -75,4 +75,4 @@ To plot overall bout analytics and check reproducibility, run the following:<br>
 
 ## Additional Resources
 - For the complete repository, including datasets and pre-trained models, visit [this Google Drive link](https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ).
-- Feel free to mail us at baghelvipul@iitgn.ac.in any queries about executing the files.
+- Feel free to mail us at baghelvipul@iitgn.ac.in for any queries about executing the files.
