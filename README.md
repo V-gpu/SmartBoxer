@@ -17,7 +17,9 @@ Install anaconda, open a terminal, and create a new environment with Python3.6+
 Installation
 1) Download the repository to your local system using git clone https://github.com/V-gpu/SmartBoxer.git
 2) Download the yolov5 and yolov7 weights from SLOAN/00boundarydetection/yolov5l.pt, SLOAN/00boundarydetection/yolov5n.pt and SLOAN/1detection/yolov7-seg.pt, respectively.
-3) pip install requirements.txt (The requirements file is available in the ‘1detection’ folder) 
+3) To install all the required packages, run the following
+   cd SLOAN/1detection/
+   pip install requirements.txt
 
 Get Started
 Automatic Bout Clip Segmentation:
