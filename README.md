@@ -21,8 +21,8 @@ git clone https://github.com/V-gpu/SmartBoxer.git
 - yolov7-seg.pt
 
 3. Install the required Python packages:
-cd SmartBoxer/SLOAN/1detection/
-pip install -r requirements.txt\
+'cd SmartBoxer/SLOAN/1detection/'
+'pip install -r requirements.txt\'
 
 ## Getting Started
 ### Automatic Bout Clip Segmentation
