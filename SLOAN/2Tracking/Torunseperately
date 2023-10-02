@@ -1,0 +1,1 @@
+python3 histotracker.py --fullpathpickle  "/home/monsley/Downloads/yolov7-segmentation-main/toupload/1detection/runs/predict-seg/exp" --filelist "/home/monsley/Downloads/yolov7-segmentation-main/toupload/0SegmentedVideos/Toprocess/Bout-0_Boxer1_Boxer-2_2023-03-03111.avi"
