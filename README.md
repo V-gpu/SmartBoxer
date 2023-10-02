@@ -1,48 +1,57 @@
 # SmartBoxer
-Automated Movement-Pattern Analytics and Longitudinal Performance Tracking of Multiple Boxers in Large-Scale Sparring Videos
+**Automated Movement-Pattern Analytics and Longitudinal Performance Tracking of Multiple Boxers in Large-Scale Sparring Videos**
 
-Read the following instructions to work with SmartBoxer repository for inferencing and reproducibility testing.
-This code is implemented and tested on the Ubuntu 22.04 LTS system.
-The complete repository, along with the dataset and pre-trained models, are available at
-https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ
+![GitHub repo size](https://img.shields.io/github/repo-size/V-gpu/SmartBoxer)
+![GitHub stars](https://img.shields.io/github/stars/V-gpu/SmartBoxer)
 
-Note:
-To install the end-to-end SmartBoxer module repository using GitHub and run it on your local system, follow the given steps, download all the required files from the Google Drive link, and place them accordingly.
+## Introduction
+SmartBoxer is a powerful tool for analyzing movement patterns and tracking performance in sparring boxing videos. This repository provides all the necessary resources to get started.
 
-Pre-requisites
-Install anaconda, open a terminal, and create a new environment with Python3.6+
-   conda create -n smartboxer python=3.6+
-   conda activate smartboxer
+## System Requirements
+- Ubuntu 22.04 LTS
+- Anaconda with Python 3.6+
 
-Installation
-1) Download the repository to your local system using git clone https://github.com/V-gpu/SmartBoxer.git
-2) Download the yolov5 and yolov7 weights from SLOAN/00boundarydetection/yolov5l.pt, SLOAN/00boundarydetection/yolov5n.pt and SLOAN/1detection/yolov7-seg.pt, respectively.
-3) To install all the required packages, run the following
-   cd SLOAN/1detection/
-   pip install requirements.txt
+## Installation
+1. Clone the repository to your local system:
+git clone https://github.com/V-gpu/SmartBoxer.git
 
-Get Started
-Automatic Bout Clip Segmentation:
-1) Download the input long-term raw video from SLOAN/00boundarydetection/input/Bout-03-Mar-2023 10-35-34.avi
-2) Run the following code in the terminal:
-   cd SLOAN
-   bash smartboxerM1.sh
-3) Segmented output bout clips gets saved into SLOAN/0SegmentedVideos/segmentedbouts folder
-   
-Continuous and Robust Tracking (HistoTrack) + Movement Pattern Analytics
-1) Place the bout clip to be tested at SLOAN/0SegmentedVideos/Toprocess/Bout-0_Boxer1_Boxer-2_2023-03-03111.avi
-2) Run the following code in the terminal:
-   cd SLOAN
-   bash smartboxerM2.sh
-3) You would be required to select the desired number of individuals to track. Visually look at the colored boxes around each individual from the ‘source’ subfolder of 4Metrics. 
-D1 - black, D2- white, D3 - cyan. You can type ‘T’ and press enter accordingly. For instance, let us say that boxers are assigned black and white boxes, while the referee is assigned the cyan box. Then, D1: type ‘T’ and press enter, D2: type ‘T’ and press enter, D3: press enter. This allows the AI model to track only the boxers. 
+2. Download the following weights files:
+- yolov5l.pt
+- yolov5n.pt
+- yolov7-seg.pt
 
-A new folder with the filename mentioned in the Toprocess folder will be created and four different Movement-Pattern Analytics (Directional histogram, hotspot, Engagement/disengagement, Zone management)  will be created, and the metrics for every 20 sec are derived. A video plotting the  Longitudinal Performance Tracking  is also saved in the 4metrics folder.
+3. Install the required Python packages:
+cd SmartBoxer/SLOAN/1detection/
+pip install -r requirements.txt\
 
-For plotting the overall bout analytics and checking the reproducibility of the code, go through and run the Plotting.py file using the terminal.
-   cd SLOAN
-   python Plotting.py 
+## Getting Started
+### Automatic Bout Clip Segmentation
+1. Download the input long-term raw video from `SmartBoxer/SLOAN/00boundarydetection/input/Bout-03-Mar-2023 10-35-34.avi`.
 
-Optional: 
-To rename the video with specific names, use two names in the player one and player 2 columns and input the row in the renamefile.py (uncomment - python3 $SUBFOLD1 in the smartboxerM1.sh file). You would obtain a folder named ‘renamedsegmentedbouts’ containing the renamed segmented bouts.
+2. Run the segmentation code:
+cd SmartBoxer/SLOAN
+bash smartboxerM1.sh
 
+3. Segmented bout clips will be saved in `SmartBoxer/SLOAN/0SegmentedVideos/segmentedbouts`.
+
+### Continuous and Robust Tracking (HistoTrack) + Movement Pattern Analytics
+1. Place the bout clip to be tested at `SmartBoxer/SLOAN/0SegmentedVideos/Toprocess/Bout-0_Boxer1_Boxer-2_2023-03-03111.avi`.
+
+2. Run the tracking and analytics code:
+cd SmartBoxer/SLOAN
+bash smartboxerM2.sh
+
+3. Follow the on-screen instructions to select the individuals to track.
+
+4. A new folder with movement pattern analytics will be created.
+
+## Reproducibility and Analytics
+To plot overall bout analytics and check reproducibility, run the following:
+cd SmartBoxer/SLOAN
+python Plotting.py
+
+### Optional
+- To rename videos, edit the player names in `renamefile.py` and uncomment the appropriate line in `smartboxerM1.sh`. Run `smartboxerM1.sh` to generate renamed segmented bouts.
+
+## Additional Resources
+- For the complete repository, including datasets and pre-trained models, visit [this Google Drive link](https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ).
