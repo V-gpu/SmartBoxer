@@ -13,7 +13,7 @@ Read the following instructions to work with the repository for inferencing and 
 This code is implemented and tested on the Ubuntu 22.04 LTS system with Python 3.8.
 
 ### Note
-To install the end-to-end SmartBoxer module repository using GitHub and run it on your local system, follow the given steps, download all the required files from the Google Drive link, and place them accordingly.
+To install the end-to-end SmartBoxer module repository using GitHub and run it on your local system, follow the given steps, download all the required files from the [Google Drive link](https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ), and place them accordingly.
 
 ## System Requirements
 - Linux or Ubuntu
@@ -74,5 +74,5 @@ To plot overall bout analytics and check reproducibility, run the following:<br>
 - Run `smartboxerM1.sh` to generate renamed segmented bouts.
 
 ## Additional Resources
-- For the complete repository, including datasets and pre-trained models, visit [this Google Drive link](https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ).
+- For the complete repository, including datasets and pre-trained models, visit this [Google Drive link](https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ).
 - Feel free to mail us at baghelvipul@iitgn.ac.in for any queries about executing the files.
