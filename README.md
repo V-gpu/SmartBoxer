@@ -4,6 +4,8 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/V-gpu/SmartBoxer)
 ![GitHub stars](https://img.shields.io/github/stars/V-gpu/SmartBoxer)
 
+![Alt text](SLOAN/Demonstration_Figure.jpg?raw=true "Movement Pattern Analysis of Two Boxers throughout a Bout using 4 Quantitative Metrics")
+
 ## Introduction
 SmartBoxer is a powerful tool for analyzing movement patterns and tracking performance in sparring boxing videos. <br> 
 This repository provides all the necessary resources to get started. <br>
