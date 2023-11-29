@@ -94,13 +94,30 @@ outputvideo = os.path.join(nameofvideopath,nameofvideo)
 print('outputvideo',outputvideo)
 output3 = cv2.VideoWriter(outputvideo, cv2.VideoWriter_fourcc('M','J','P','G'), 60, (984,984), True)
 
+orderingfile = 0
 Sourcepath = CWD+'/'+ metricfolder+'/' + nameoffolder +'/'+ "Sourcefolder"
+
+# for file in os.listdir(Sourcepath):
+# 	# Sourcepath = file
+# 	if orderingfile == 0:
+# 		path1 = os.path.join(Sourcepath, file)
+# 		orderingfile +=1
+# 	if orderingfile == 1:
+# 		path2 = os.path.join(Sourcepath, file)
+# 	# path3 = os.path.join(directory_path, Sourcepath,'Sourcefolder','Cyan.npy')
+
+# 	# print('path1',path1)
+# 	# print('path2',path2)
+
+# 	# print('path3',path3)
+# 	ID1 = np.load(path1, allow_pickle=True).reshape(1)#Black
+# 	ID2 = np.load(path2, allow_pickle=True).reshape(1)#White
 
 path1 = os.path.join(Sourcepath,'Black.npy')
 path2 = os.path.join(Sourcepath,'White.npy')
 path3 = os.path.join(Sourcepath,'Cyan.npy')
 
-#print('path1',path1)
+# #print('path1',path1)
 
 ID1 = np.load(path1, allow_pickle=True).reshape(1)#Black
 ID2 = np.load(path2, allow_pickle=True).reshape(1)#White
@@ -121,14 +138,16 @@ D3F1 = None
 
 #inputtin which ID to chose
 
-D1 = input('Enter D1:')
-D2 = input('Enter D2:')
-D3 = input('Enter D3:')
+# D1 = input('Enter D1:')
+# D2 = input('Enter D2:')
+# D3 = input('Enter D3:')
+D1 =''
+D2= 'T'
+D3 = 'T'
 
 
 
 # print('D1, D2',D1, D2)
-
 
 
 if D1 and D2:
@@ -141,6 +160,9 @@ if D1 and D2:
 	D2F1Y = round(int(D2F1[2]))
 	MD1 = ID1
 	MD2 = ID2
+	x1 = list(ID1[0].keys())
+	y1 = list(ID2[0].keys())
+	XY=list(set(x1).intersection(y1))	
 	if D1F1Y < D2F1Y: # D1 is closer to up blue , D2 is closer to down  red 
 		ColorD1 = (255,0,0)# Blue
 		ColorD2 = (0,0,255)# Red
@@ -164,7 +186,10 @@ elif D1 and D3:
 	D3F1 =ID3[0][first_key_D3][0]
 	D3F1Y = round(int(D3F1[2]))
 	MD1 = ID1
-	MD2 = ID3	
+	MD2 = ID3
+	x1 = list(ID1[0].keys())
+	y1 = list(ID3[0].keys())
+	XY=list(set(x1).intersection(y1))		
 	if D1F1Y < D3F1Y: # D1 is closer to up blue , D2 is closer to down  red 
 		ColorD1 = (255,0,0)# Blue
 		ColorD3 = (0,0,255)# Red
@@ -188,7 +213,10 @@ elif D2 and D3:
 	D3F1 =ID3[0][first_key_D3][0]
 	D3F1Y = round(int(D3F1[2]))
 	MD1 = ID2
-	MD2 = ID3	
+	MD2 = ID3
+	x1 = list(ID2[0].keys())
+	y1 = list(ID3[0].keys())
+	XY=list(set(x1).intersection(y1))			
 	if D2F1Y < D3F1Y: # D1 is closer to up blue , D2 is closer to down  red 
 		print('inside 1')
 		ColorD2 = (255,0,0)# Blue
@@ -208,6 +236,13 @@ elif D2 and D3:
 
 
 #Manual intervention is required to spot the boxers and the referee 
+
+
+
+x1 = list(range(2,total_frames-1))
+y1 = XY
+finalXY=list(set(x1).intersection(y1))
+
 
 
 for framesnumber in range(2,total_frames-1):#12490
@@ -235,6 +270,7 @@ for framesnumber in range(2,total_frames-1):#12490
 			#cv2.rectangle(frame, (ax, ay), (aw, ah), (255, 0, 0),3)
 			#cv2.rectangle(frame, (ax, ay), (aw, ah), (255, 0, 0),3)
 			#cv2.putText(frame,str(actualframenumber[insideframesnumber]),org = (200, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
+			cv2.putText(frame,str([insideframesnumber]),org = (200, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
 			#output1.write(frame)
 		elif framesnumber !=ID1[0][insideframesnumber][0][0]:
 			#print('framesnumber1',framesnumber)
@@ -256,6 +292,7 @@ for framesnumber in range(2,total_frames-1):#12490
 			# if incrementcheck>2:
 			# 	cv2.line(frame,(colo1[IFN-1]), (colo1[IFN]) ,(0, 0, 255),2)			
 			#cv2.putText(frame,str(actualframenumber[insideframesnumber]),org = (200, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
+			cv2.putText(frame,str([insideframesnumber]),org = (200, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
 			#print('2')
 			#output2.write(frame)
 			# incrementcheck +=1
@@ -282,7 +319,7 @@ for framesnumber in range(2,total_frames-1):#12490
             #                   cv2.line(frame,(colo2[IFN-1]), (colo2[IFN]) ,(255, 0, 0),2)
             #                   IFN +=1			
 			#cv2.putText(frame,str(CSFREAME[insideframesnumber]),org = (700, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
-			#cv2.putText(frame,str([insideframesnumber]),org = (200, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
+			cv2.putText(frame,str([insideframesnumber]),org = (200, 100), fontFace = cv2.FONT_HERSHEY_DUPLEX, fontScale = 2.0, color = (255, 255, 255),thickness = 2)
 			#output3.write(frame)
 			# incrementcheck1+=1
 			#IFN +=1
@@ -345,7 +382,7 @@ print('COMPLETED MAN!')
 
 
 print('MD1', len(MD1))
-print('MD2', (MD2))
+print('MD2', len(MD2))
 
 # P = []
 # PP = []
@@ -546,9 +583,10 @@ def directionalhistogram (MD1, MD2):
 
 
 		for kl in range(len(person1)-1):
+		
 			POL=person1[kl]
 			POL1=person1[kl+1]
-			print('Ncount, Ecount, Scount, Wcount',Ncount, Ecount, Scount, Wcount)
+			# print('Ncount, Ecount, Scount, Wcount',Ncount, Ecount, Scount, Wcount)
 			#print('1',POL,POL1)
 			if len(POL) and len(POL1) == 0:
 				print('Detection miss', kl)
@@ -606,26 +644,22 @@ def directionalhistogram (MD1, MD2):
 							
 			s = ['F', 'L', 'B', 'R']
 			sop = ['Q'] 
-			listcontaining = [Ncount, Ecount, Scount, Wcount]
-			print('Ncount, Ecount, Scount, Wcount',Ncount, Ecount, Scount, Wcount)
-		plt.bar(ind,listcontaining,width, color=COLOR1)#blue
-		plt.xticks([])
-		print('listcontaining',listcontaining)
-		Ncount = 0
-		Ecount = 0
-		Scount = 0
-		Wcount = 0
-	
-		#plt.annotate(str(s),xy =(ind,listcontaining),  ha='center', va='bottom')
+			# listcontaining = [Ncount, Ecount, Scount, Wcount]
+			listcontaining = [100, 100, 100, 100]
+			# print('Ncount, Ecount, Scount, Wcount',Ncount, Ecount, Scount, Wcount)
+		# plt.bar(ind,listcontaining,width, color=COLOR1)#blue
+		# plt.xticks([])
+		# print('listcontaining',listcontaining)
+		# Ncount = 0
+		# Ecount = 0
+		# Scount = 0
+		# Wcount = 0
 
-		#for i in range(len(s)):
-		#	plt.annotate(str(s[i]),xy =(ind[i],listcontaining[i]),  ha='center', va='bottom')
-		#	print('SSSSSSSSSSSSSSSSSSS',(ind[i],listcontaining[i]))
-
-
-		print('Ncount1, Ecount1, Scount1, Wcount1',Ncount1, Ecount1, Scount1, Wcount1)
+		# plt.savefig(Directionalhistogrampath + '/'+'Directional Histogram123' + str(k) +'.tiff', dpi = 300)
+		# print('Ncount1, Ecount1, Scount1, Wcount1',Ncount1, Ecount1, Scount1, Wcount1)
 
 		for kl in range(len(person2)-1):
+	
 			POL2=person2[kl]
 			POL21=person2[kl+1]
 			#print('2',POL2,POL21)		
@@ -683,24 +717,38 @@ def directionalhistogram (MD1, MD2):
 				elif D1 == "W":
 					Wcount1 += 1
 			s1 = ['F', 'L', 'B', 'R']
-			print('Ncount1, Ecount1, Scount1, Wcount1',Ncount1, Ecount1, Scount1, Wcount1)				
+			# print('Ncount1, Ecount1, Scount1, Wcount1',Ncount1, Ecount1, Scount1, Wcount1)				
 			listcontaining1 = [Ncount1, Ecount1, Scount1, Wcount1]
 			bars = ('Front', 'Left', 'Back', 'Right')
 			y_pos = np.arange(4)
 			#print('listcontaining', listcontaining1)
-		plt.bar(ind+width,listcontaining1,width,color=COLOR2)
+		maxlist = max(max(listcontaining), max(listcontaining1))
+		print('maxlist',maxlist)
+		print('[Ncount/maxlist, Ecount/maxlist, Scount/maxlist, Wcount/maxlist]',[Ncount/maxlist, Ecount/maxlist, Scount/maxlist, Wcount/maxlist])		
+		plt.bar(ind,[Ncount/maxlist, Ecount/maxlist, Scount/maxlist, Wcount/maxlist],width, color=COLOR1)#blue
+		plt.xticks([])
+		# print('listcontaining',listcontaining)
+
+
+		plt.bar(ind+width,[Ncount1/maxlist, Ecount1/maxlist, Scount1/maxlist, Wcount1/maxlist],width,color=COLOR2)
 		plt.xticks([])
 		#plt.annotate(str(s1),xy =(Extensions,listcontaining1),  ha='center', va='bottom')
-		plt.xticks(y_pos, bars, color='black', rotation=0, fontweight='bold', fontsize='10', horizontalalignment='center')
-		plt.yticks(fontsize=10, fontweight='bold')
-		print('listcontaining1',listcontaining1)
+		plt.xticks(y_pos, bars, color='black', rotation=0, fontweight='bold', fontsize='20', horizontalalignment='center')
+		plt.yticks(fontsize=20, fontweight='bold')
+		# print('listcontaining1',listcontaining1)
+		print('[Ncount/maxlist, Ecount/maxlist, Scount/maxlist, Wcount/maxlist]',[Ncount1/maxlist, Ecount1/maxlist, Scount1/maxlist, Wcount1/maxlist])
+
+		plt.savefig(Directionalhistogrampath + '/'+'Directional Histogram' +'_'+ str(k) +'.tiff', dpi = 300)
+		listcontaining1 = []
+		listcontaining = []
+		Ncount = 0
+		Ecount = 0
+		Scount = 0
+		Wcount = 0
 		Ncount1 = 0
 		Ecount1 = 0
 		Scount1 = 0
-		Wcount1 = 0
-		
-
-		plt.savefig(Directionalhistogrampath + '/'+'Directional Histogram' + str(k) +'.tiff', dpi = 300)
+		Wcount1 = 0		
 
 	return 1
 
@@ -932,17 +980,17 @@ def ENGDIS (MD1, MD2):
 
 
 					# #first ID
-					if (X_1_1 + Y_1_1) <= 10 and (X_1_2 + Y_1_2) > (EN1X+EN1Y):		
+					if (X_1_1 + Y_1_1) <= 30 and (X_1_2 + Y_1_2) > (EN1X+EN1Y):		
 						ID1_Engage.append(1)
 					else:
 						ID1_Engage.append(0)
 
-					if  (X_2_2 + Y_2_2) <= 10 and (X_2_1 + Y_2_1) > (EN1X+EN1Y) :
+					if  (X_2_2 + Y_2_2) <= 30 and (X_2_1 + Y_2_1) > (EN1X+EN1Y) :
 						ID2_Engage.append(1)
 					else:
 						ID2_Engage.append(0)
 						
-					if  ((X_1_1 + Y_1_1) <= 10 and (X_1_2 + Y_1_2) > (EN1X+EN1Y)) and ((X_2_2 + Y_2_2) <= 10 and (X_2_1 + Y_2_1) > (EN1X+EN1Y)) :
+					if  ((X_1_1 + Y_1_1) <= 30 and (X_1_2 + Y_1_2) > (EN1X+EN1Y)) and ((X_2_2 + Y_2_2) <= 10 and (X_2_1 + Y_2_1) > (EN1X+EN1Y)) :
 						ID3_Engage.append(1)
 					else:
 						ID3_Engage.append(0)			
@@ -966,7 +1014,7 @@ def ENGDIS (MD1, MD2):
 			ED_Boxer_1 = ID1_Engage[(kk*FrSeMi)+1:(kk+1)*FrSeMi]
 			Act_ED_B1 = sum(ED_Boxer_1)
 			#print('Act_ED_B1',Act_ED_B1)	
-			if Act_ED_B1 > 20:
+			if Act_ED_B1 > 30:
 				Backup1[(l*FrSeMi):(l+1)*FrSeMi] = [1]*FrSeMi
 			else:
 				Backup1[(l*FrSeMi):(l+1)*FrSeMi] = [0]*FrSeMi
@@ -978,7 +1026,7 @@ def ENGDIS (MD1, MD2):
 			ED_Boxer_2 = ID2_Engage[(q*FrSeMi)+1:(q+1)*FrSeMi]
 			Act_ED_B2 = sum(ED_Boxer_2)
 			#print('Act_ED_B2',Act_ED_B2)	
-			if Act_ED_B2 > 20:
+			if Act_ED_B2 > 30:
 				Backup2[(m*FrSeMi):(m+1)*FrSeMi] = [1]*FrSeMi
 			else:	
 				Backup2[(m*FrSeMi):(m+1)*FrSeMi] = [0]*FrSeMi
@@ -1033,22 +1081,24 @@ def ENGDIS (MD1, MD2):
 		#plt.plot(time_frame2,ID2_Engage, color = 'red')
 		fig=plt.figure(figsize=(20, 20))
 		ax1=fig.add_subplot(311)
-		ax1.xaxis.get_label().set_fontsize(20)
-		ax1.tick_params(axis='x', labelsize=35)
+		# ax1.xaxis.get_label().set_fontsize(20)
+		# ax1.tick_params(axis='x', labelsize=35)
 		#fig.subplots_adjust(left=0,right=1,bottom=0,top=1) #R1 T1
 		#plt.plot(time_frame1,Backup1, color = 'blue', linewidth = 5)
 		plt.bar(time_frame1,Backup1,color=COLOR1)
 		plt.xlim(start_point,end_point)
+		plt.xticks([])
+		plt.yticks([])
 		#plt.xlabel('Time in secs', fontsize=30)
-		plt.ylabel('Engage/Disengage',fontsize=30)
-		plt.yticks(fontweight='bold')
+		# plt.ylabel('Engage/Disengage',fontsize=30)
+		# plt.yticks(fontweight='bold')
 
 
 		ax2=fig.add_subplot(312)
 		#plt.plot(time_frame2,Backup2, color = 'red', linewidth = 5)
 		plt.bar(time_frame2,Backup2,color=COLOR2)
-		ax2.xaxis.get_label().set_fontsize(20)
-		ax2.tick_params(axis='x', labelsize=35)
+		# ax2.xaxis.get_label().set_fontsize(20)
+		# ax2.tick_params(axis='x', labelsize=35)
 		#plt.plot(time_frame1,AED_B1, color = 'blue')
 		#plt.plot(time_frame2,AED_B2, color = 'red')
 		#plt.plot(time_frame,dist_engage, color = 'green')
@@ -1056,25 +1106,30 @@ def ENGDIS (MD1, MD2):
 		#plt.legend(['Player1','Player2'])
 		plt.xlim(start_point,end_point)
 		#plt.xlabel('Time in secs', fontsize=30)
-		plt.ylabel('Engage/Disengage', fontsize=30)
+		plt.yticks([])			
+		plt.ylabel('Engage/Disengage', fontsize=100)
 		plt.yticks(fontweight='bold')
+		plt.xticks([])
 		#plt.text(0.9*end_point , 0.8, 'enagement_ratio = ' + str(engage_ratio), horizontalalignment='center',verticalalignment='center', fontsize=10)
 			
 			
 		ax3=fig.add_subplot(313)
 		#plt.plot(time_frame2,Backup2, color = 'red', linewidth = 5)
 		plt.bar(time_frame3,Combined,color='blueviolet')
-		ax3.xaxis.get_label().set_fontsize(20)
-		ax3.tick_params(axis='x', labelsize=35)
+		# ax3.xaxis.get_label().set_fontsize(20)
+		ax3.tick_params(axis='x', labelsize=50)
+		ax3.set_xlabel('Time in Seconds', fontweight='bold', fontsize=80)
 		#plt.plot(time_frame1,AED_B1, color = 'blue')
 		#plt.plot(time_frame2,AED_B2, color = 'red')
 		#plt.plot(time_frame,dist_engage, color = 'green')
 		#plt.legend([P1_id,P2_id,'Nearby'])
 		#plt.legend(['Player1','Player2'])
 		plt.xlim(start_point,end_point)
-		plt.xlabel('Time in secs', fontsize=30)
-		plt.ylabel('Engage/Disengage', fontsize=30)
-		plt.yticks(fontweight='bold')
+		plt.xlabel('Time in secs', fontsize=100)
+		plt.xticks(fontweight='bold')
+		plt.yticks([])		
+		# plt.ylabel('Engage/Disengage', fontsize=30)
+		# plt.yticks(fontweight='bold')
 		#plt.text(0.9*end_point , 0.8, 'enagement_ratio = ' + str(engage_ratio), horizontalalignment='center',verticalalignment='center', fontsize=10)
 		#plt.savefig('ED.tiff', dpi = 300)
 		plt.savefig(EngageDisengagepath + '/'+ 'Engage-Disengage' + str(k) +'.tiff', dpi = 300)    
@@ -1372,7 +1427,7 @@ def zonemanagement(MD1, MD2):
 			cv2.rectangle(overlay, (x, y), (w, h), (0, 100, 100), -1)  # A filled rectangle
 			image_new = cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0)	
 	
-	print(Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E)
+	print('Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E',Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E)
 
 
 	TimeLimit = 20
@@ -1564,24 +1619,24 @@ def zonemanagement(MD1, MD2):
 						zone2 +=1															
 					elif (Z2_S+1<=Actx<Z1_S and Z2_S+1<=Acty<Z1_E):
 						zone1 +=1
-		if Totalnumberofzones == 4:
-			X1 = [zone5, zone6, zone7, zone8]
-			X=['zone1', 'zone2', 'zone3','zone4']
-			print(X,X1)
-		elif Totalnumberofzones == 8:
-			X1 = [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8]
-			X=['zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8']
-			print(X,X1)
-		#plt.bar(ind,X1,width, color=(0,0,1))
-		plt.bar(ind,X1,width, color=COLOR1)
-		zone1 = 0
-		zone2 = 0
-		zone3 = 0
-		zone4 = 0
-		zone5 = 0
-		zone6 = 0
-		zone7 = 0
-		zone8 = 0	
+		# if Totalnumberofzones == 4:
+		# 	X1 = [zone5, zone6, zone7, zone8]
+		# 	X=['zone1', 'zone2', 'zone3','zone4']
+		# 	print(X,X1)
+		# elif Totalnumberofzones == 8:
+		# 	X1 = [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8]
+		# 	X=['zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8']
+		# 	print(X,X1)
+		# #plt.bar(ind,X1,width, color=(0,0,1))
+		# plt.bar(ind,X1,width, color=COLOR1)
+		# zone1 = 0
+		# zone2 = 0
+		# zone3 = 0
+		# zone4 = 0
+		# zone5 = 0
+		# zone6 = 0
+		# zone7 = 0
+		# zone8 = 0	
 
 
 		#plt.show()
@@ -1629,28 +1684,46 @@ def zonemanagement(MD1, MD2):
 						Szone2 +=1															
 					elif (Z2_S+1<=Actx<Z1_S and Z2_S+1<=Acty<Z1_E):
 						Szone1 +=1	
-		
+
+		Maxzone12 = max(zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, Szone1, Szone2, Szone3, Szone4, Szone5, Szone6, Szone7, Szone8)
+		print('Maxzone1',zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8)
+		if Totalnumberofzones == 4:
+			X1 = [zone5, zone6, zone7, zone8]
+			X=['zone1', 'zone2', 'zone3','zone4']
+			print(X,X1)
+		elif Totalnumberofzones == 8:
+			X1 = [zone1/Maxzone12, zone2/Maxzone12, zone3/Maxzone12, zone4/Maxzone12, zone5/Maxzone12, zone6/Maxzone12, zone7/Maxzone12, zone8/Maxzone12]
+			X=['zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8']
+			print(X,X1)
+		#plt.bar(ind,X1,width, color=(0,0,1))
+		plt.bar(ind,X1,width, color=COLOR1)
+		zone1 = 0
+		zone2 = 0
+		zone3 = 0
+		zone4 = 0
+		zone5 = 0
+		zone6 = 0
+		zone7 = 0
+		zone8 = 0	
+
 		#X1 = [zone1/len(person1), zone2/len(person1), zone3/len(person1),zone4/len(person1)]
+		Maxzone2 = max(Szone1, Szone2, Szone3, Szone4, Szone5, Szone6, Szone7, Szone8)
 		if Totalnumberofzones == 4:
 			X2 = [Szone5, Szone6, Szone7, Szone8]
 			X=['zone1', 'zone2', 'zone3','zone4']
 			print(X,X2)
 		elif Totalnumberofzones == 8:
-			X2 = [Szone1, Szone2, Szone3, Szone4, Szone5, Szone6, Szone7, Szone8]
+			X2 = [Szone1/Maxzone12, Szone2/Maxzone12, Szone3/Maxzone12, Szone4/Maxzone12, Szone5/Maxzone12, Szone6/Maxzone12, Szone7/Maxzone12, Szone8/Maxzone12]
 			X=['zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8']
 			print(X,X2)
 
-		#plt.bar(ind+width,X2,width,color=(1,0,0))
 		plt.bar(ind+width,X2,width,color=COLOR2)
-		#plt.show()
-		
-		# if Totalnumberofzones == 4:
-		# 	plt.xticks(ind + width / 2, ('zone1', 'zone2', 'zone3','zone4',))
-		# 	plt.savefig('4_Zonemanagment.tiff', dpi = 300)
-		# if Totalnumberofzones == 8:
-		plt.xticks(ind + width / 2, ('zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8'),fontweight='bold', fontsize='30', horizontalalignment='center')
-		plt.yticks(fontsize=20, fontweight='bold')
+		plt.xticks(ind + width / 2, ('Z1', 'Z2', 'Z3','Z4','Z5', 'Z6', 'Z7','Z8'),fontweight='bold', fontsize='40', horizontalalignment='center')
+		plt.yticks(fontsize=40, fontweight='bold')
 		plt.savefig(Zonemanagmentpath +'/'+'Zonemanagment' + str(k) +'.tiff', dpi = 300)
+		# fig.tight_layout()
+		# plt.subplots_adjust(0,0,1,1,0,0)		
+
 		Szone1 = 0
 		Szone2 = 0
 		Szone3 = 0
@@ -1658,9 +1731,48 @@ def zonemanagement(MD1, MD2):
 		Szone5 = 0
 		Szone6 = 0
 		Szone7 = 0
-		Szone8 = 0		
+		Szone8 = 0
+		# fignumber +=1
+		# print('FIGURELENGHT', fignumber)
+		# # lengoffile += 1 		
+		# #print(zone1, zone2, zone3, zone4, Pzone1, Pzone2, Pzone3,Pzone4)
+
+		# #X1 = [zone1/len(person1), zone2/len(person1), zone3/len(person1),zone4/len(person1)]
+		# if Totalnumberofzones == 4:
+		# 	X2 = [Szone5, Szone6, Szone7, Szone8]
+		# 	X=['zone1', 'zone2', 'zone3','zone4']
+		# 	print(X,X2)
+		# elif Totalnumberofzones == 8:
+		# 	X2 = [Szone1, Szone2, Szone3, Szone4, Szone5, Szone6, Szone7, Szone8]
+		# 	X=['zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8']
+		# 	print(X,X2)
+
+		# #plt.bar(ind+width,X2,width,color=(1,0,0))
+		# plt.bar(ind+width,X2,width,color=COLOR2)
+		# #plt.show()
+		
+		# # if Totalnumberofzones == 4:
+		# # 	plt.xticks(ind + width / 2, ('zone1', 'zone2', 'zone3','zone4',))
+		# # 	plt.savefig('4_Zonemanagment.tiff', dpi = 300)
+		# # if Totalnumberofzones == 8:
+		# plt.xticks(ind + width / 2, ('zone1', 'zone2', 'zone3','zone4','zone5', 'zone6', 'zone7','zone8'),fontweight='bold', fontsize='40', horizontalalignment='center')
+		# plt.yticks(fontsize=20, fontweight='bold')
+		# plt.savefig(Zonemanagmentpath +'/'+'Zonemanagment' + str(k) +'.tiff', dpi = 300)
+		# Szone1 = 0
+		# Szone2 = 0
+		# Szone3 = 0
+		# Szone4 = 0
+		# Szone5 = 0
+		# Szone6 = 0
+		# Szone7 = 0
+		# Szone8 = 0		
 		#print(zone1, zone2, zone3, zone4, Pzone1, Pzone2, Pzone3,Pzone4)
+	print('Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E',Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E)
 				
+	# return Totalnumberofzones
+	print('ReofSep',ReofSep, Start, End)
+	print('Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E',Z1_S,Z2_S,Z3_S,Z4_S,Z5_S,Z5_S,Z6_S,Z7_S,Z8_S, Z1_E,Z2_E,Z3_E,Z4_E,Z5_E,Z5_E,Z6_E,Z7_E,Z8_E)
+	
 	return Totalnumberofzones
 	
 
