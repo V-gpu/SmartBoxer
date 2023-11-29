@@ -15,6 +15,9 @@ This code is implemented and tested on the Ubuntu 22.04 LTS system with Python 3
 ### Note
 To install the end-to-end SmartBoxer module repository using GitHub and run it on your local system, follow the given steps, download all the required files from the [Google Drive link](https://drive.google.com/drive/folders/1zMeZAZI32kszZup85OTsRsr5KrcppYjQ), and place them accordingly.
 
+To download the input videos for full paper results: please also visit the following link and place the data in `SLOAN/Inputvideos/` folder,
+[Google Drive link](https://drive.google.com/drive/folders/1kxFAoLSNNXBEC-_z1lmeF3dVrj6fwWRo?usp=sharing).
+
 ## System Requirements
 - Linux or Ubuntu
 - Python 3.6+
@@ -26,7 +29,7 @@ Install Anaconda, open a terminal, and create a new environment with Python 3.6 
   `conda activate smartboxer`
    
 1. Clone the repository to your local system:
-`git clone https://github.com/V-gpu/SmartBoxer.git`
+`git clone -b full_paper --single-branch https://github.com/V-gpu/SmartBoxer.git`
 
 2. Download the following weights files:
 - yolov5l.pt from `SLOAN/00boundarydetection/yolov5l.pt`
