@@ -66,6 +66,8 @@ D1 - black, D2- white, D3 - cyan. You can type ‘T’ and press enter according
 
 ## Reproducibility and Analytics
 To plot overall bout analytics and check reproducibility, run the following:<br>
+1. Take a input video ‘BoxerA_BoxerB_04-Aug-2023_19.avi’  and paste it on `0SegmentedVideos/Toprocess/` <br>
+2. Take the three ‘.npy’ files and paste it onto the `4Metrics/BoxerA_BoxerB_04-Aug-2023_19/Sourcefolder` <br>
 `cd SmartBoxer/SLOAN`<br>
 `python Plotting.py`
 
